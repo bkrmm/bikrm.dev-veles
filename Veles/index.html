@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>VELES</title>
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="particles.js" defer></script>
+    <script src="cursor.js" defer></script>
+    <script src="dashboard.js" defer></script>
+</head>
+<body>
+    <div class="gradient-background"></div>
+    
+    <header>
+        <nav>
+            <div class="logo">VELES</div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#dashboard">Dashboard</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#about">About</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="log-in/index.html" class="login-btn">Log in</a>
+                <a href="sign-up/index.html" class="signup-btn">Sign up</a>
+            </div>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content" data-aos="fade-up">
+                <h1 class="animate-title">Budgeting that simply <span class="gradient-text">WORKS</span></h1>
+                <p>Take control of your finances with VELES, the intelligent budgeting tool that helps you track, save, and grow your money effortlessly.</p>
+                <div class="cta-buttons">
+                    <a href="#" class="primary-btn">Get Started</a>
+                    <a href="#" class="secondary-btn">See Demo</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="dashboard-preview">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Monthly Overview</h3>
+                            <span class="date">August 2023</span>
+                        </div>
+                        <div class="card-stats">
+                            <div class="stat">
+                                <span class="stat-value">$3,528.72</span>
+                                <span class="stat-label">Income</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">$2,145.36</span>
+                                <span class="stat-label">Expenses</span>
+                            </div>
+                            <div class="stat highlight">
+                                <span class="stat-value">$1,383.36</span>
+                                <span class="stat-label">Savings</span>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="heroChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <h2>Why Choose <span class="gradient-text">VELES</span></h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-svg">
+                            <path d="M3 3v18h18"/>
+                            <path d="M18 17V9"/>
+                            <path d="M13 17V5"/>
+                            <path d="M8 17v-3"/>
+                        </svg>
+                    </div>
+                    <h3>Smart Analytics</h3>
+                    <p>Gain insights into your spending habits with AI-powered analytics and personalized recommendations.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-svg">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                        </svg>
+                    </div>
+                    <h3>Real-time Alerts</h3>
+                    <p>Get notified about unusual spending, upcoming bills, and when you're close to budget limits.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-svg">
+                            <path d="M21 12a9 9 0 0 0-9-9 9 9 0 0 0-9 9 9 9 0 0 0 9 9 9 9 0 0 0 9-9z"/>
+                            <path d="M3.6 9h16.8"/>
+                            <path d="M3.6 15h16.8"/>
+                            <path d="M11.5 3a17 17 0 0 0 0 18"/>
+                            <path d="M12.5 3a17 17 0 0 1 0 18"/>
+                        </svg>
+                    </div>
+                    <h3>Automatic Syncing</h3>
+                    <p>Connect your accounts and cards for seamless transaction tracking and categorization.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-svg">
+                            <circle cx="12" cy="12" r="10"/>
+                            <circle cx="12" cy="12" r="6"/>
+                            <circle cx="12" cy="12" r="2"/>
+                        </svg>
+                    </div>
+                    <h3>Goal Setting</h3>
+                    <p>Create and track financial goals with customizable timelines and automated savings plans.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="dashboard" class="dashboard-section">
+            <div class="section-header">
+                <h2>Powerful <span class="gradient-text">Dashboard</span></h2>
+                <p>Everything you need to manage your finances in one place</p>
+            </div>
+            <div class="dashboard-showcase">
+                <div class="dashboard-tabs">
+                    <button class="tab active" data-tab="overview">Overview</button>
+                    <button class="tab" data-tab="budget">Budget</button>
+                    <button class="tab" data-tab="goals">Goals</button>
+                    <button class="tab" data-tab="reports">Reports</button>
+                    <button class="tab" data-tab="investments">Investments</button>
+                    <button class="tab" data-tab="settings">Settings</button>
+                </div>
+                <div class="dashboard-preview-large">
+                    <div class="tab-content active" id="overview-content">
+                        <div class="dashboard-grid">
+                            <div class="dashboard-item summary">
+                                <h4>Monthly Summary</h4>
+                                <div class="summary-stats">
+                                    <div class="summary-stat">
+                                        <span class="label">Income</span>
+                                        <span class="value">$4,542.45</span>
+                                        <span class="trend positive">+6.8%</span>
+                                    </div>
+                                    <div class="summary-stat">
+                                        <span class="label">Expenses</span>
+                                        <span class="value">$2,931.56</span>
+                                        <span class="trend negative">+3.2%</span>
+                                    </div>
+                                    <div class="summary-stat">
+                                        <span class="label">Savings</span>
+                                        <span class="value">$1,610.89</span>
+                                        <span class="trend positive">+12.4%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dashboard-item chart">
+                                <canvas id="overviewChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="budget-content">
+                        <div class="dashboard-grid">
+                            <div class="dashboard-item summary">
+                                <h4>Budget Categories</h4>
+                                <div class="summary-stats">
+                                    <div class="summary-stat">
+                                        <span class="label">Housing</span>
+                                        <span class="value">$1,200.00</span>
+                                        <span class="trend neutral">40%</span>
+                                    </div>
+                                    <div class="summary-stat">
+                                        <span class="label">Transportation</span>
+                                        <span class="value">$450.00</span>
+                                        <span class="trend neutral">15%</span>
+                                    </div>
+                                    <div class="summary-stat">
+                                        <span class="label">Food</span>
+                                        <span class="value">$600.00</span>
+                                        <span class="trend neutral">20%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dashboard-item chart">
+                                <canvas id="budgetChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="goals-content">
+                        <div class="dashboard-grid">
+                            <div class="dashboard-item summary">
+                                <h4>Savings Goals</h4>
+                                <div class="summary-stats">
+                                    <div class="summary-stat">
+                                        <span class="label">Emergency Fund</span>
+                                        <span class="value">$8,000/$10,000</span>
+                                        <span class="trend positive">80%</span>
+                                    </div>
+                                    <div class="summary-stat">
+                                        <span class="label">Vacation</span>
+                                        <span class="value">$2,500/$5,000</span>
+                                        <span class="trend positive">50%</span>
+                                    </div>
+                                    <div class="summary-stat">
+                                        <span class="label">New Car</span>
+                                        <span class="value">$15,000/$30,000</span>
+                                        <span class="trend positive">50%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dashboard-item chart">
+                                <canvas id="goalsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="reports-content">
+                        <div class="dashboard-grid">
+                            <div class="dashboard-item summary">
+                                <h4>Annual Overview</h4>
+                                <div class="summary-stats">
+                                    <div class="summary-stat">
+                                        <span class="label">Total Income</span>
+                                        <span class="value">$54,509.40</span>
+                                        <span class="trend positive">+8.2%</span>
+                                    </div>
+                                    <div class="summary-stat">
+                                        <span class="label">Total Expenses</span>
+                                        <span class="value">$35,178.72</span>
+                                        <span class="trend negative">+4.5%</span>
+                                    </div>
+                                    <div class="summary-stat">
+                                        <span class="label">Net Savings</span>
+                                        <span class="value">$19,330.68</span>
+                                        <span class="trend positive">+15.8%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dashboard-item chart">
+                                <canvas id="reportsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="investments-content">
+                        <div class="dashboard-grid">
+                            <div class="dashboard-item summary">
+                                <h4>Investment Performance</h4>
+                                <div class="summary-stats">
+                                    <div class="summary-stat">
+                                        <span class="label">Portfolio Value</span>
+                                        <span class="value">$87,432.18</span>
+                                        <span class="trend positive">+12.6%</span>
+                                    </div>
+                                    <div class="summary-stat">
+                                        <span class="label">YTD Return</span>
+                                        <span class="value">$8,432.18</span>
+                                        <span class="trend positive">+8.4%</span>
+                                    </div>
+                                    <div class="summary-stat">
+                                        <span class="label">Dividend Income</span>
+                                        <span class="value">$1,245.32</span>
+                                        <span class="trend positive">+5.2%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dashboard-item chart">
+                                <canvas id="investmentChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="dashboard-item asset-allocation" style="margin-top: 2rem; grid-column: 1 / -1;">
+                            <h4>Asset Allocation</h4>
+                            <div class="asset-allocation-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1rem;">
+                                <div class="asset-card" style="background: rgba(26, 26, 26, 0.6); border-radius: var(--radius-md); padding: 1rem; border: 1px solid rgba(157, 78, 221, 0.1);">
+                                    <div class="asset-name">Stocks</div>
+                                    <div class="asset-value">60%</div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 60%;"></div>
+                                    </div>
+                                </div>
+                                <div class="asset-card" style="background: rgba(26, 26, 26, 0.6); border-radius: var(--radius-md); padding: 1rem; border: 1px solid rgba(157, 78, 221, 0.1);">
+                                    <div class="asset-name">Bonds</div>
+                                    <div class="asset-value">25%</div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 25%;"></div>
+                                    </div>
+                                </div>
+                                <div class="asset-card" style="background: rgba(26, 26, 26, 0.6); border-radius: var(--radius-md); padding: 1rem; border: 1px solid rgba(157, 78, 221, 0.1);">
+                                    <div class="asset-name">Real Estate</div>
+                                    <div class="asset-value">10%</div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 10%;"></div>
+                                    </div>
+                                </div>
+                                <div class="asset-card" style="background: rgba(26, 26, 26, 0.6); border-radius: var(--radius-md); padding: 1rem; border: 1px solid rgba(157, 78, 221, 0.1);">
+                                    <div class="asset-name">Cash</div>
+                                    <div class="asset-value">5%</div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 5%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="settings-content">
+                        <div class="dashboard-grid">
+                            <div class="dashboard-item settings-panel" style="grid-column: 1 / -1;">
+                                <h4>Dashboard Settings</h4>
+                                <div class="settings-form" style="margin-top: 1.5rem;">
+                                    <div class="settings-group" style="margin-bottom: 1.5rem;">
+                                        <h5 style="margin-bottom: 1rem; font-size: 1rem;">Display Preferences</h5>
+                                        <div class="settings-options" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                                            <div class="settings-option" style="display: flex; align-items: center; gap: 0.5rem;">
+                                                <input type="checkbox" id="dark-mode" checked>
+                                                <label for="dark-mode">Dark Mode</label>
+                                            </div>
+                                            <div class="settings-option" style="display: flex; align-items: center; gap: 0.5rem;">
+                                                <input type="checkbox" id="show-animations" checked>
+                                                <label for="show-animations">Show Animations</label>
+                                            </div>
+                                            <div class="settings-option" style="display: flex; align-items: center; gap: 0.5rem;">
+                                                <input type="checkbox" id="compact-view">
+                                                <label for="compact-view">Compact View</label>
+                                            </div>
+                                            <div class="settings-option" style="display: flex; align-items: center; gap: 0.5rem;">
+                                                <input type="checkbox" id="show-tooltips" checked>
+                                                <label for="show-tooltips">Show Tooltips</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="settings-group" style="margin-bottom: 1.5rem;">
+                                        <h5 style="margin-bottom: 1rem; font-size: 1rem;">Currency & Date Format</h5>
+                                        <div class="settings-options" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                                            <div class="settings-option" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                                <label for="currency-format">Currency Format</label>
+                                                <select id="currency-format" style="background-color: rgba(26, 26, 26, 0.8); border: 1px solid rgba(157, 78, 221, 0.2); border-radius: var(--radius-md); padding: 0.5rem; color: var(--text-color);">
+                                                    <option value="usd" selected>USD ($)</option>
+                                                    <option value="eur">EUR (€)</option>
+                                                    <option value="gbp">GBP (£)</option>
+                                                    <option value="jpy">JPY (¥)</option>
+                                                </select>
+                                            </div>
+                                            <div class="settings-option" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                                <label for="date-format">Date Format</label>
+                                                <select id="date-format" style="background-color: rgba(26, 26, 26, 0.8); border: 1px solid rgba(157, 78, 221, 0.2); border-radius: var(--radius-md); padding: 0.5rem; color: var(--text-color);">
+                                                    <option value="mm/dd/yyyy" selected>MM/DD/YYYY</option>
+                                                    <option value="dd/mm/yyyy">DD/MM/YYYY</option>
+                                                    <option value="yyyy-mm-dd">YYYY-MM-DD</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="settings-group">
+                                        <h5 style="margin-bottom: 1rem; font-size: 1rem;">Notification Settings</h5>
+                                        <div class="settings-options" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                                            <div class="settings-option" style="display: flex; align-items: center; gap: 0.5rem;">
+                                                <input type="checkbox" id="budget-alerts" checked>
+                                                <label for="budget-alerts">Budget Alerts</label>
+                                            </div>
+                                            <div class="settings-option" style="display: flex; align-items: center; gap: 0.5rem;">
+                                                <input type="checkbox" id="bill-reminders" checked>
+                                                <label for="bill-reminders">Bill Reminders</label>
+                                            </div>
+                                            <div class="settings-option" style="display: flex; align-items: center; gap: 0.5rem;">
+                                                <input type="checkbox" id="unusual-activity" checked>
+                                                <label for="unusual-activity">Unusual Activity</label>
+                                            </div>
+                                            <div class="settings-option" style="display: flex; align-items: center; gap: 0.5rem;">
+                                                <input type="checkbox" id="investment-updates" checked>
+                                                <label for="investment-updates">Investment Updates</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="save-settings" style="background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end)); color: white; border: none; border-radius: var(--radius-md); padding: 0.75rem 1.5rem; font-weight: 600; margin-top: 2rem; cursor: pointer;">Save Settings</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <h2>Trusted by <span class="gradient-text">Thousands</span></h2>
+            <div class="testimonial-slider">
+                <div class="testimonial">
+                    <p>"VELES has completely transformed how I manage my finances. I've saved over $3,000 in just 6 months!"</p>
+                    <div class="testimonial-author">
+                        <span class="author-name">Sarah J.</span>
+                        <span class="author-title">Freelance Designer</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="pricing">
+            <h2 class="free-forever">Free Forever</h2>
+            <div class="pricing-single">
+                <div class="pricing-card featured">
+                    <div class="pricing-header">
+                        <h3>All Features Included</h3>
+                        <div class="price">
+                            <span class="amount">$0</span>
+                            <span class="period">forever</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Advanced budget tracking</li>
+                        <li>Unlimited financial accounts</li>
+                        <li>Real-time alerts and notifications</li>
+                        <li>Goal setting & tracking</li>
+                        <li>AI-powered insights and analytics</li>
+                        <li>Team collaboration tools</li>
+                        <li>Business expense tracking</li>
+                        <li>Tax preparation tools</li>
+                        <li>Priority customer support</li>
+                        <li>Mobile app access</li>
+                        <li>Monthly detailed reports</li>
+                        <li>Custom dashboard views</li>
+                    </ul>
+                    <a href="#" class="pricing-btn">Get Started Now</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2>Ready to Take <span>Control</span> of Your Finances?</h2>
+                <p>Join thousands of users who have transformed their financial future with VELES.</p>
+                <a href="#" class="cta-btn">Start Your Free Trial</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div class="logo">VELES</div>
+                <p>Smart financial budgeting for everyone</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <a href="#">Features</a>
+                    <a href="#">Pricing</a>
+                    <a href="#">Testimonials</a>
+                    <a href="#">FAQ</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <a href="#">About</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Press</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <a href="#">Help Center</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 VELES. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Financial data for pie charts
+        const overviewData = {
+            labels: ['Housing', 'Transportation', 'Food', 'Utilities', 'Entertainment', 'Savings'],
+            datasets: [{
+                data: [1200, 450, 600, 350, 200, 800],
+                backgroundColor: [
+                    '#6366f1', '#8b5cf6', '#d946ef', '#ec4899', '#f43f5e', '#f97316'
+                ],
+                hoverBackgroundColor: [
+                    '#818cf8', '#a78bfa', '#e879f9', '#f472b6', '#fb7185', '#fb923c'
+                ]
+            }],
+        };
+
+        const budgetData = {
+            labels: ['Housing', 'Transportation', 'Food', 'Utilities', 'Entertainment', 'Other'],
+            datasets: [{
+                data: [1200, 450, 600, 300, 250, 200],
+                backgroundColor: [
+                    '#6366f1', '#8b5cf6', '#d946ef', '#ec4899', '#f43f5e', '#f97316'
+                ],
+                hoverBackgroundColor: [
+                    '#818cf8', '#a78bfa', '#e879f9', '#f472b6', '#fb7185', '#fb923c'
+                ]
+            }]
+        };
+
+        const goalsData = {
+            labels: ['Emergency Fund', 'Vacation', 'New Car'],
+            datasets: [{
+                data: [8000, 2500, 15000],
+                backgroundColor: ['#6366f1', '#8b5cf6', '#d946ef'],
+                hoverBackgroundColor: ['#818cf8', '#a78bfa', '#e879f9']
+            }]
+        };
+
+        const reportsData = {
+            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+            datasets: [{
+                label: 'Income',
+                data: [12000, 14500, 13800, 14200],
+                borderColor: '#6366f1',
+                backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                tension: 0.4
+            }, {
+                label: 'Expenses',
+                data: [8000, 9200, 8700, 9300],
+                borderColor: '#ec4899',
+                backgroundColor: 'rgba(236, 72, 153, 0.2)',
+                tension: 0.4
+            }]
+        };
+
+        // Tab switching functionality
+        document.querySelectorAll('.dashboard-tabs .tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
+                document.querySelectorAll('.dashboard-tabs .tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                document.getElementById(`${tab.dataset.tab}-content`).classList.add('active');
+            });
+        });
+
+        // Chart options
+        const chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: {
+                        color: '#fff',
+                        font: {
+                            family: 'Inter'
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const value = context.raw;
+                            return ` $${value.toLocaleString()}`;
+                        }
+                    },
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    padding: 12,
+                    titleFont: {
+                        size: 14,
+                        family: 'Inter'
+                    },
+                    bodyFont: {
+                        size: 14,
+                        family: 'Inter'
+                    }
+                }
+            },
+            animation: {
+                animateRotate: true,
+                animateScale: true
+            },
+            hover: {
+                mode: 'single',
+                animationDuration: 300,
+                onHover: function(event, elements) {
+                    const chart = this.chart;
+                    chart.getDatasetMeta(0).data.forEach(segment => {
+                        segment.options.offset = 0;
+                        segment.options.shadowBlur = 0;
+                        segment.options.shadowOffsetX = 0;
+                        segment.options.shadowOffsetY = 0;
+                        segment.options.scale = 1;
+                        segment.options.zIndex = 0;
+                    });
+                    if (elements && elements.length) {
+                        const segment = elements[0];
+                        segment.options.offset = 25;
+                        segment.options.shadowBlur = 20;
+                        segment.options.shadowColor = 'rgba(0, 0, 0, 0.3)';
+                        segment.options.shadowOffsetX = 8;
+                        segment.options.shadowOffsetY = 8;
+                        segment.options.scale = 1.2;
+                        segment.options.zIndex = 1;
+                    }
+                    chart.update('none');
+                }
+            },
+            elements: {
+                arc: {
+                    borderWidth: 2,
+                    borderColor: 'rgba(255, 255, 255, 0.1)',
+                    hoverBorderColor: 'rgba(255, 255, 255, 0.8)',
+                    hoverOffset: 0,
+                    transition: 'all 0.3s ease'
+                }
+            }
+        };
+
+        // Initialize all charts
+        const heroChart = new Chart(
+            document.getElementById('heroChart'),
+            {
+                type: 'pie',
+                data: overviewData,
+                options: {
+                    ...chartOptions,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        );
+
+        const overviewChart = new Chart(
+            document.getElementById('overviewChart'),
+            {
+                type: 'pie',
+                data: overviewData,
+                options: chartOptions
+            }
+        );
+
+        const budgetChart = new Chart(
+            document.getElementById('budgetChart'),
+            {
+                type: 'pie',
+                data: budgetData,
+                options: chartOptions
+            }
+        );
+
+        const goalsChart = new Chart(
+            document.getElementById('goalsChart'),
+            {
+                type: 'pie',
+                data: goalsData,
+                options: chartOptions
+            }
+        );
+
+        const reportsChart = new Chart(
+            document.getElementById('reportsChart'),
+            {
+                type: 'line',
+                data: reportsData,
+                options: {
+                    ...chartOptions,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#fff',
+                                callback: function(value) {
+                                    return '$' + value.toLocaleString();
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                }
+            }
+        );
+        
+        // Investment chart data
+        const investmentData = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [
+                {
+                    label: 'Portfolio Value',
+                    data: [75000, 76200, 78500, 77800, 79200, 81500, 83000, 84200, 85500, 86800, 87432, 89000],
+                    borderColor: 'rgba(99, 102, 241, 0.8)',
+                    backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                    tension: 0.4,
+                    fill: true
+                },
+                {
+                    label: 'Benchmark',
+                    data: [75000, 75800, 76900, 76200, 77500, 78800, 79500, 80200, 81500, 82800, 83500, 84200],
+                    borderColor: 'rgba(156, 163, 175, 0.8)',
+                    backgroundColor: 'rgba(156, 163, 175, 0.1)',
+                    tension: 0.4,
+                    fill: false,
+                    borderDash: [5, 5]
+                }
+            ]
+        };
+        
+        // Initialize investment chart
+        const investmentChart = new Chart(
+            document.getElementById('investmentChart'),
+            {
+                type: 'line',
+                data: investmentData,
+                options: {
+                    ...chartOptions,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#fff',
+                                callback: function(value) {
+                                    return '$' + value.toLocaleString();
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                }
+            }
+        );
+    </script>
+</body>
+</html>
