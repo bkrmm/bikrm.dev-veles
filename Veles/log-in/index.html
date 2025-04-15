@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - VELES</title>
+    <link rel="stylesheet" href="../normalize.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="auth.css" />
+    <script src="../cursor.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  </head>
+  <body>
+    <div class="gradient-background"></div>
+
+    <div class="auth-container">
+      <form class="login-form" id="loginForm">
+        <h1>Welcome Back</h1>
+        <div id="errorMessage" class="error-message"></div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            required
+            placeholder="Enter your email"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            required
+            placeholder="Enter your password"
+          />
+        </div>
+        <div class="form-options">
+          <label class="remember-me">
+            <input type="checkbox" id="rememberMe" />
+            Remember me
+          </label>
+          <a href="#" class="forgot-password">Forgot password?</a>
+        </div>
+        <button type="submit" class="login-btn">Log In</button>
+        <div class="signup-link">
+          Don't have an account? <a href="../sign-up/index.html">Sign up</a>
+        </div>
+      </form>
+    </div>
+
+    <script src="../particles.js"></script>
+    <script>
+      // Initialize Supabase client with the same credentials as sign-up page
+      const supabaseUrl = "https://zasmrwoujnxxrmmezldh.supabase.co";
+      const supabaseAnonKey =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inphc21yd291am54eHJtbWV6bGRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM3NjgzMTUsImV4cCI6MjA1OTM0NDMxNX0.DmB7HwUXfJuU2Mo-swGQSzK03sTt_YLIA3ifJuIEpdc";
+      const { createClient } = supabase;
+      const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+
+      // Function to display error messages
+      function showError(message) {
+        const errorElement = document.getElementById("errorMessage");
+        errorElement.textContent = message;
+        errorElement.style.display = "block";
+
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+          errorElement.style.display = "none";
+        }, 5000);
+      }
+
+      // Check if user is already logged in
+      window.addEventListener("DOMContentLoaded", async () => {
+        const { data } = await supabaseClient.auth.getSession();
+        if (data.session) {
+          // User is already logged in, redirect to homepage
+          window.location.href = "../homepage/index.html";
+        }
+      });
+
+      // Handle login form submission
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+          const rememberMe = document.getElementById("rememberMe").checked;
+
+          try {
+            const { data, error } =
+              await supabaseClient.auth.signInWithPassword({
+                email: email,
+                password: password,
+              });
+
+            if (error) {
+              showError(error.message);
+              return;
+            }
+
+            // Store the session if remember me is checked
+            if (rememberMe) {
+              localStorage.setItem("userSession", JSON.stringify(data.session));
+            }
+
+            // Redirect to homepage
+            window.location.href = "../homepage/index.html";
+          } catch (error) {
+            console.error("Error:", error.message);
+            showError("Login failed: " + error.message);
+          }
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile - VELES</title>
+    <link rel="stylesheet" href="../normalize.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="profile.css" />
+    <script src="../cursor.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Space+Grotesk:wght@300..700&display=swap"
+    rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  </head>
+  <body>
+    <div class="gradient-background"></div>
+
+    <header class="dashboard-header">
+      <div class="container">
+        <div class="header-content">
+          <h1 class="logo">VELES</h1>
+          <nav class="main-nav">
+            <ul>
+              <li><a href="../homepage/index.html">Dashboard</a></li>
+              <li><a href="../homepage/Transactions/index.html">Transactions</a></li>
+              <li><a href="../index.html">Home</a></li>
+            </ul>
+          </nav>
+          <div class="user-menu">
+            <button id="userMenuBtn" class="user-menu-btn">
+              <span id="userInitials">JD</span>
+            </button>
+            <div id="userDropdown" class="dropdown-menu">
+              <a href="#" class="active">Profile</a>
+              <a href="#">Settings</a>
+              <a href="#" id="logoutBtn">Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="profile-container">
+      <div class="container">
+        <div class="page-header">
+          <h2>Your Profile</h2>
+          <p>View and manage your personal information</p>
+        </div>
+
+        <div class="profile-grid">
+          <!-- Profile Summary Card -->
+          <div class="card profile-summary-card">
+            <div class="profile-avatar">
+              <div id="avatarDisplay" class="avatar-circle">
+                <span id="profileInitials">JD</span>
+              </div>
+              <button id="changeAvatarBtn" class="change-avatar-btn">Change Photo</button>
+              <input type="file" id="avatarUpload" accept="image/*" style="display: none;" />
+            </div>
+            <div class="profile-info">
+              <h3 id="profileName">John Doe</h3>
+              <p id="profileEmail">john@example.com</p>
+              <p class="member-since">Member since <span id="memberSince">May 2023</span></p>
+            </div>
+          </div>
+
+          <!-- Personal Information Card -->
+          <div class="card profile-details-card">
+            <div class="card-header">
+              <h3>Personal Information</h3>
+              <button id="editPersonalInfoBtn" class="edit-btn">Edit</button>
+            </div>
+            <div id="personalInfoDisplay" class="profile-details-content">
+              <div class="detail-item">
+                <span class="detail-label">Full Name</span>
+                <span id="fullNameDisplay" class="detail-value">John Doe</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Email</span>
+                <span id="emailDisplay" class="detail-value">john@example.com</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Phone</span>
+                <span id="phoneDisplay" class="detail-value">Not provided</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Date of Birth</span>
+                <span id="dobDisplay" class="detail-value">Not provided</span>
+              </div>
+            </div>
+            <form id="personalInfoForm" class="profile-form" style="display: none;">
+              <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" placeholder="Enter your full name" />
+              </div>
+              <div class="form-group">
+                <label for="profileEmailInput">Email</label>
+                <input type="email" id="profileEmailInput" disabled />
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" placeholder="Enter your phone number" />
+              </div>
+              <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" />
+              </div>
+              <div class="form-actions">
+                <button type="button" id="cancelPersonalInfoBtn" class="cancel-btn">Cancel</button>
+                <button type="submit" class="save-btn">Save Changes</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Security Settings Card -->
+          <div class="card security-card">
+            <div class="card-header">
+              <h3>Security Settings</h3>
+              <button id="editSecurityBtn" class="edit-btn">Edit</button>
+            </div>
+            <div id="securityDisplay" class="profile-details-content">
+              <div class="detail-item">
+                <span class="detail-label">Password</span>
+                <span class="detail-value">••••••••</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Two-Factor Authentication</span>
+                <span id="twoFactorStatus" class="detail-value status-disabled">Disabled</span>
+              </div>
+            </div>
+            <form id="securityForm" class="profile-form" style="display: none;">
+              <div class="form-group">
+                <label for="currentPassword">Current Password</label>
+                <input type="password" id="currentPassword" placeholder="Enter current password" required />
+              </div>
+              <div class="form-group">
+                <label for="newPassword">New Password</label>
+                <input type="password" id="newPassword" placeholder="Enter new password" />
+              </div>
+              <div class="form-group">
+                <label for="confirmPassword">Confirm New Password</label>
+                <input type="password" id="confirmPassword" placeholder="Confirm new password" />
+              </div>
+              <div class="form-group toggle-group">
+                <label for="twoFactorToggle">Two-Factor Authentication</label>
+                <div class="toggle-switch">
+                  <input type="checkbox" id="twoFactorToggle" />
+                  <span class="toggle-slider"></span>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button type="button" id="cancelSecurityBtn" class="cancel-btn">Cancel</button>
+                <button type="submit" class="save-btn">Save Changes</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Notification Preferences Card -->
+          <div class="card notifications-card">
+            <div class="card-header">
+              <h3>Notification Preferences</h3>
+              <button id="editNotificationsBtn" class="edit-btn">Edit</button>
+            </div>
+            <div id="notificationsDisplay" class="profile-details-content">
+              <div class="detail-item">
+                <span class="detail-label">Email Notifications</span>
+                <span id="emailNotifStatus" class="detail-value status-enabled">Enabled</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Transaction Alerts</span>
+                <span id="transactionAlertStatus" class="detail-value status-enabled">Enabled</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Budget Alerts</span>
+                <span id="budgetAlertStatus" class="detail-value status-enabled">Enabled</span>
+              </div>
+            </div>
+            <form id="notificationsForm" class="profile-form" style="display: none;">
+              <div class="form-group toggle-group">
+                <label for="emailNotifToggle">Email Notifications</label>
+                <div class="toggle-switch">
+                  <input type="checkbox" id="emailNotifToggle" checked />
+                  <span class="toggle-slider"></span>
+                </div>
+              </div>
+              <div class="form-group toggle-group">
+                <label for="transactionAlertToggle">Transaction Alerts</label>
+                <div class="toggle-switch">
+                  <input type="checkbox" id="transactionAlertToggle" checked />
+                  <span class="toggle-slider"></span>
+                </div>
+              </div>
+              <div class="form-group toggle-group">
+                <label for="budgetAlertToggle">Budget Alerts</label>
+                <div class="toggle-switch">
+                  <input type="checkbox" id="budgetAlertToggle" checked />
+                  <span class="toggle-slider"></span>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button type="button" id="cancelNotificationsBtn" class="cancel-btn">Cancel</button>
+                <button type="submit" class="save-btn">Save Changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="../particles.js"></script>
+    <script>
+      // Initialize Supabase client
+      const supabaseUrl = "https://zasmrwoujnxxrmmezldh.supabase.co";
+      const supabaseAnonKey =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inphc21yd291am54eHJtbWV6bGRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM3NjgzMTUsImV4cCI6MjA1OTM0NDMxNX0.DmB7HwUXfJuU2Mo-swGQSzK03sTt_YLIA3ifJuIEpdc";
+      const { createClient } = supabase;
+      const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+
+      // Function to display error messages
+      function showError(message) {
+        // Create error element if it doesn't exist
+        let errorElement = document.getElementById("errorMessage");
+        if (!errorElement) {
+          errorElement = document.createElement("div");
+          errorElement.id = "errorMessage";
+          errorElement.className = "error-message";
+          document.querySelector(".page-header").appendChild(errorElement);
+        }
+        
+        errorElement.textContent = message;
+        errorElement.style.display = "block";
+
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+          errorElement.style.display = "none";
+        }, 5000);
+      }
+
+      // Function to display success messages
+      function showSuccess(message) {
+        // Create success element if it doesn't exist
+        let successElement = document.getElementById("successMessage");
+        if (!successElement) {
+          successElement = document.createElement("div");
+          successElement.id = "successMessage";
+          successElement.className = "success-message";
+          document.querySelector(".page-header").appendChild(successElement);
+        }
+        
+        successElement.textContent = message;
+        successElement.style.display = "block";
+
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+          successElement.style.display = "none";
+        }, 5000);
+      }
+
+      // Check if user is logged in
+      async function checkAuth() {
+        const { data } = await supabaseClient.auth.getSession();
+        if (!data.session) {
+          // Redirect to login if not authenticated
+          window.location.href = "../log-in/index.html";
+        } else {
+          // Get user details and load profile
+          loadUserProfile();
+        }
+      }
+
+      // Load user profile data
+      async function loadUserProfile() {
+        try {
+          const { data: { user } } = await supabaseClient.auth.getUser();
+          
+          if (user) {
+            // Get profile data from Supabase
+            const { data: profile, error } = await supabaseClient
+              .from('profiles')
+              .select('*')
+              .eq('id', user.id)
+              .single();
+
+            // Set email (always available from auth)
+            document.getElementById("profileEmail").textContent = user.email;
+            document.getElementById("emailDisplay").textContent = user.email;
+            document.getElementById("profileEmailInput").value = user.email;
+            
+            // Set user initials from email if no profile data
+            const emailName = user.email.split("@")[0];
+            const initials = emailName.substring(0, 2).toUpperCase();
+            document.getElementById("userInitials").textContent = initials;
+            document.getElementById("profileInitials").textContent = initials;
+            
+            // Set profile name from email if no profile data
+            const formattedName = emailName.charAt(0).toUpperCase() + emailName.slice(1);
+            document.getElementById("profileName").textContent = formattedName;
+            document.getElementById("fullNameDisplay").textContent = formattedName;
+            document.getElementById("fullName").value = formattedName;
+            
+            // Set member since date
+            const createdAt = new Date(user.created_at);
+            const options = { year: 'numeric', month: 'long' };
+            document.getElementById("memberSince").textContent = createdAt.toLocaleDateString('en-US', options);
+            
+            // If we have profile data, update the UI
+            if (profile && !error) {
+              // Update name if available
+              if (profile.full_name) {
+                document.getElementById("profileName").textContent = profile.full_name;
+                document.getElementById("fullNameDisplay").textContent = profile.full_name;
+                document.getElementById("fullName").value = profile.full_name;
+              }
+              
+              // Update phone if available
+              if (profile.phone) {
+                document.getElementById("phoneDisplay").textContent = profile.phone;
+                document.getElementById("phone").value = profile.phone;
+              }
+              
+              // Update DOB if available
+              if (profile.dob) {
+                document.getElementById("dobDisplay").textContent = new Date(profile.dob).toLocaleDateString();
+                document.getElementById("dob").value = profile.dob;
+              }
+              
+              // Update notification preferences if available
+              if (profile.email_notifications !== undefined) {
+                document.getElementById("emailNotifStatus").textContent = profile.email_notifications ? "Enabled" : "Disabled";
+                document.getElementById("emailNotifStatus").className = `detail-value status-${profile.email_notifications ? 'enabled' : 'disabled'}`;
+                document.getElementById("emailNotifToggle").checked = profile.email_notifications;
+              }
+              
+              if (profile.transaction_alerts !== undefined) {
+                document.getElementById("transactionAlertStatus").textContent = profile.transaction_alerts ? "Enabled" : "Disabled";
+                document.getElementById("transactionAlertStatus").className = `detail-value status-${profile.transaction_alerts ? 'enabled' : 'disabled'}`;
+                document.getElementById("transactionAlertToggle").checked = profile.transaction_alerts;
+              }
+              
+              if (profile.budget_alerts !== undefined) {
+                document.getElementById("budgetAlertStatus").textContent = profile.budget_alerts ? "Enabled" : "Disabled";
+                document.getElementById("budgetAlertStatus").className = `detail-value status-${profile.budget_alerts ? 'enabled' : 'disabled'}`;
+                document.getElementById("budgetAlertToggle").checked = profile.budget_alerts;
+              }
+              
+              // Update 2FA status if available
+              if (profile.two_factor_auth !== undefined) {
+                document.getElementById("twoFactorStatus").textContent = profile.two_factor_auth ? "Enabled" : "Disabled";
+                document.getElementById("twoFactorStatus").className = `detail-value status-${profile.two_factor_auth ? 'enabled' : 'disabled'}`;
+                document.getElementById("twoFactorToggle").checked = profile.two_factor_auth;
+              }
+            }
+          }
+        } catch (error) {
+          console.error("Error loading profile:", error.message);
+          showError("Failed to load profile data");
+        }
+      }
+
+      // Handle personal info form submission
+      document.getElementById("personalInfoForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
+        
+        try {
+          const { data: { user } } = await supabaseClient.auth.getUser();
+          
+          if (!user) {
+            showError("User not authenticated");
+            return;
+          }
+          
+          const fullName = document.getElementById("fullName").value;
+          const phone = document.getElementById("phone").value;
+          const dob = document.getElementById("dob").value;
+          
+          // Update profile in Supabase
+          const { error } = await supabaseClient
+            .from('profiles')
+            .upsert({
+              id: user.id,
+              full_name: fullName,
+              phone: phone,
+              dob: dob,
+              updated_at: new Date()
+            });
+          
+          if (error) {
+            throw error;
+          }
+          
+          // Update UI
+          document.getElementById("profileName").textContent = fullName;
+          document.getElementById("fullNameDisplay").textContent = fullName;
+          document.getElementById("phoneDisplay").textContent = phone || "Not provided";
+          document.getElementById("dobDisplay").textContent = dob ? new Date(dob).toLocaleDateString() : "Not provided";
+          
+          // Hide form and show display
+          document.getElementById("personalInfoForm").style.display = "none";
+          document.getElementById("personalInfoDisplay").style.display = "block";
+          
+          showSuccess("Personal information updated successfully");
+        } catch (error) {
+          console.error("Error updating profile:", error.message);
+          showError("Failed to update profile: " + error.message);
+        }
+      });
+
+      // Handle security form submission
+      document.getElementById("securityForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
+        
+        try {
+          const currentPassword = document.getElementById("currentPassword").value;
+          const newPassword = document.getElementById("newPassword").value;
+          const confirmPassword = document.getElementById("confirmPassword").value;
+          const twoFactorEnabled = document.getElementById("twoFactorToggle").checked;
+          
+          // Validate passwords
+          if (newPassword && newPassword !== confirmPassword) {
+            showError("New passwords do not match");
+            return;
+          }
+          
+          const { data: { user } } = await supabaseClient.auth.getUser();
+          
+          if (!user) {
+            showError("User not authenticated");
+            return;
+          }
+          
+          // Update password if provided
+          if (newPassword) {
+            // In a real app, you would verify the current password first
+            const { error } = await supabaseClient.auth.updateUser({
+              password: newPassword
+            });
+            
+            if (error) {
+              throw error;
+            }
+          }
+          
+          // Update 2FA preference
+          const { error } = await supabaseClient
+            .from('profiles')
+            .upsert({
+              id: user.id,
+              two_factor_auth: twoFactorEnabled,
+              updated_at: new Date()
+            });
+          
+          if (error) {
+            throw error;
+          }
+          
+          // Update UI
+          document.getElementById("twoFactorStatus").textContent = twoFactorEnabled ? "Enabled" : "Disabled";
+          document.getElementById("twoFactorStatus").className = `detail-value status-${twoFactorEnabled ? 'enabled' : 'disabled'}`;
+          
+          // Hide form and show display
+          document.getElementById("securityForm").style.display = "none";
+          document.getElementById("securityDisplay").style.display = "block";
+          
+          // Clear password fields
+          document.getElementById("currentPassword").value = "";
+          document.getElementById("newPassword").value = "";
+          document.getElementById("confirmPassword").value = "";
+          
+          showSuccess("Security settings updated successfully");
+        } catch (error) {
+          console.error("Error updating security settings:", error.message);
+          showError("Failed to update security settings: " + error.message);
+        }
+      });
+
+      // Handle notifications form submission
+      document.getElementById("notificationsForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
+        
+        try {
+          const emailNotif = document.getElementById("emailNotifToggle").checked;
+          const transactionAlert = document.getElementById("transactionAlertToggle").checked;
+          const budgetAlert = document.getElementById("budgetAlertToggle").checked;
+          
+          const { data: { user } } = await supabaseClient.auth.getUser();
+          
+          if (!user) {
+            showError("User not authenticated");
+            return;
+          }
+          
+          // Update notification preferences
+          const { error } = await supabaseClient
+            .from('profiles')
+            .upsert({
+              id: user.id,
+              email_notifications: emailNotif,
+              transaction_alerts: transactionAlert,
+              budget_alerts: budgetAlert,
+              updated_at: new Date()
+            });
+          
+          if (error) {
+            throw error;
+          }
+          
+          // Update UI
+          document.getElementById("emailNotifStatus").textContent = emailNotif ? "Enabled" : "Disabled";
+          document.getElementById("emailNotifStatus").className = `detail-value status-${emailNotif ? 'enabled' : 'disabled'}`;
+          
+          document.getElementById("transactionAlertStatus").textContent = transactionAlert ? "Enabled" : "Disabled";
+          document.getElementById("transactionAlertStatus").className = `detail-value status-${transactionAlert ? 'enabled' : 'disabled'}`;
+          
+          document.getElementById("budgetAlertStatus").textContent = budgetAlert ? "Enabled" : "Disabled";
+          document.getElementById("budgetAlertStatus").className = `detail-value status-${budgetAlert ? 'enabled' : 'disabled'}`;
+          
+          // Hide form and show display
+          document.getElementById("notificationsForm").style.display = "none";
+          document.getElementById("notificationsDisplay").style.display = "block";
+          
+          showSuccess("Notification preferences updated successfully");
+        } catch (error) {
+          console.error("Error updating notification preferences:", error.message);
+          showError("Failed to update notification preferences: " + error.message);
+        }
+      });
+
+      // Toggle edit modes
+      document.getElementById("editPersonalInfoBtn").addEventListener("click", function() {
+        document.getElementById("personalInfoDisplay").style.display = "none";
+        document.getElementById("personalInfoForm").style.display = "block";
+      });
+
+      document.getElementById("cancelPersonalInfoBtn").addEventListener("click", function() {
+        document.getElementById("personalInfoForm").style.display = "none";
+        document.getElementById("personalInfoDisplay").style.display = "block";
+      });
+
+      document.getElementById("editSecurityBtn").addEventListener("click", function() {
+        document.getElementById("securityDisplay").style.display = "none";
+        document.getElementById("securityForm").style.display = "block";
+      });
+
+      document.getElementById("cancelSecurityBtn").addEventListener("click", function() {
+        document.getElementById("securityForm").style.display = "none";
+        document.getElementById("securityDisplay").style.display = "block";
+      });
+
+      document.getElementById("editNotificationsBtn").addEventListener("click", function() {
+        document.getElementById("notificationsDisplay").style.display = "none";
+        document.getElementById("notificationsForm").style.display = "block";
+      });
+
+      document.getElementById("cancelNotificationsBtn").addEventListener("click", function() {
+        document.getElementById("notificationsForm").style.display = "none";
+        document.getElementById("notificationsDisplay").style.display = "block";
+      });
+
+      // Handle avatar upload
+      document.getElementById("changeAvatarBtn").addEventListener("click", function() {
+        document.getElementById("avatarUpload").click();
+      });
+
+      document.getElementById("avatarUpload").addEventListener("change", async function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        // In a real app, you would upload the file to storage
+        // For this demo, we'll just show a success message
+        showSuccess("Profile picture updated successfully");
+      });
+
+      // Handle logout
+      document.getElementById("logoutBtn").addEventListener("click", async function(e) {
+        e.preventDefault();
+        await supabaseClient.auth.signOut();
+        window.location.href = "../log-in/index.html";
+      });
+
+      // Toggle user dropdown menu
+      document.getElementById("userMenuBtn").addEventListener("click", function() {
+        document.getElementById("userDropdown").classList.toggle("active");
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", function(e) {
+        if (!e.target.closest(".user-menu")) {
+          document.getElementById("userDropdown").classList.remove("active");
+        }
+      });
+
+      // Initialize when DOM is loaded
+      document.addEventListener("DOMContentLoaded", function() {
+        checkAuth();
+      });
+    </script>
+  </body>
+</html>

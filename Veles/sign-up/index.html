@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Sign Up - VELES</title>
+    <link rel="stylesheet" href="../normalize.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="auth.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Space+Grotesk:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../particles.js" defer></script>
+    <script src="../cursor.js" defer></script>
+  </head>
+  <body>
+    <div class="gradient-background"></div>
+
+    <main class="auth-container">
+      <div class="auth-card">
+        <h2>Create Your Account</h2>
+        <p>Start your journey to better financial management</p>
+
+        <form id="signupForm" class="auth-form">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="Enter your email"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              placeholder="Create a password"
+            />
+            <div class="password-strength">
+              <div class="password-strength-bar" id="passwordStrength"></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              required
+              placeholder="Confirm your password"
+            />
+          </div>
+
+          <button type="submit" class="primary-btn">Sign Up</button>
+
+          <div class="auth-links">
+            <p>
+              Already have an account? <a href="../log-in/index.html">Log in</a>
+            </p>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <script>
+      // Initialize Supabase client
+      const supabaseUrl = "https://zasmrwoujnxxrmmezldh.supabase.co";
+      const supabaseAnonKey =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inphc21yd291am54eHJtbWV6bGRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM3NjgzMTUsImV4cCI6MjA1OTM0NDMxNX0.DmB7HwUXfJuU2Mo-swGQSzK03sTt_YLIA3ifJuIEpdc";
+      const { createClient } = supabase;
+      const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+
+      // Password strength calculation
+      document
+        .getElementById("password")
+        .addEventListener("input", function (e) {
+          const password = e.target.value;
+          const strength = calculatePasswordStrength(password);
+          const strengthBar = document.getElementById("passwordStrength");
+          strengthBar.style.width = `${strength}%`;
+        });
+
+      function calculatePasswordStrength(password) {
+        let strength = 0;
+        if (password.length >= 8) strength += 25;
+        if (password.match(/[A-Z]/)) strength += 25;
+        if (password.match(/[0-9]/)) strength += 25;
+        if (password.match(/[^A-Za-z0-9]/)) strength += 25;
+        return strength;
+      }
+
+      // Sign up a new user with Supabase
+      async function signUpUser(email, password) {
+        const { data, error } = await supabaseClient.auth.signUp({
+          email: email,
+          password: password,
+        });
+
+        if (error) {
+          console.error("Error signing up:", error.message);
+          alert("Error signing up: " + error.message);
+          return null;
+        }
+
+        return data;
+      }
+
+      // Form submission handler
+      document
+        .getElementById("signupForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+          const confirmPassword =
+            document.getElementById("confirmPassword").value;
+
+          if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+          }
+
+          if (calculatePasswordStrength(password) < 75) {
+            alert("Please choose a stronger password!");
+            return;
+          }
+
+          const data = await signUpUser(email, password);
+          if (data) {
+            alert(
+              "Sign up successful! Please check your email for verification."
+            );
+            window.location.href = "../log-in/index.html";
+          }
+        });
+    </script>
+  </body>
+</html>

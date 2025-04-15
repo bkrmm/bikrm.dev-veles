@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title> 
+    <link rel="stylesheet" href="../normalize.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="homepage.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../cursor.js" defer></script>
+  </head>
+  <body>
+    <div class="gradient-background"></div>
+
+    <header class="dashboard-header">
+      <div class="container">
+        <div class="header-content">
+          <h1 class="logo">VELES</h1>
+          <nav class="main-nav">
+            <ul>
+              <li><a href="#" class="active">Dashboard</a></li>
+              <li><a href="Transactions\index.html">Transactions</a></li>
+              <li><a href="#">Budget</a></li>
+              <li><a href="#">Goals</a></li>
+              <li><a href="#">Reports</a></li>
+            </ul>
+          </nav>
+          <div class="user-menu">
+            <button id="userMenuBtn" class="user-menu-btn">
+              <span id="userInitials">JD</span>
+            </button>
+            <div id="userDropdown" class="dropdown-menu">
+              <a href="../profile/index.html">Profile</a>
+              <a href="#">Settings</a>
+              <a href="#" id="logoutBtn">Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard">
+      <div class="container">
+        <div class="welcome-section">
+          <h2>Welcome, <span id="userName">User</span>!</h2>
+          <p>Here's your financial overview for today</p>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="card summary-card">
+            <h3>Total Balance</h3>
+            <p class="balance">$8,245.65</p>
+            <div class="card-footer">
+              <span class="trend positive">+2.4% from last month</span>
+            </div>
+          </div>
+
+          <div class="card summary-card">
+            <h3>Income</h3>
+            <p class="balance">$3,521.00</p>
+            <div class="card-footer">
+              <span class="trend positive">+5.1% from last month</span>
+            </div>
+          </div>
+
+          <div class="card summary-card">
+            <h3>Expenses</h3>
+            <p class="balance">$2,180.35</p>
+            <div class="card-footer">
+              <span class="trend negative">+8.3% from last month</span>
+            </div>
+          </div>
+
+          <div class="card summary-card">
+            <h3>Savings</h3>
+            <p class="balance">$1,340.65</p>
+            <div class="card-footer">
+              <span class="trend positive">+1.2% from last month</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-row">
+          <div class="card chart-card">
+            <div class="card-header">
+              <h3>Monthly Overview</h3>
+              <div class="card-actions">
+                <select id="chartTimeframe">
+                  <option value="3months">Last 3 Months</option>
+                  <option value="6months" selected>Last 6 Months</option>
+                  <option value="1year">Last Year</option>
+                </select>
+              </div>
+            </div>
+            <div class="chart-container">
+              <canvas id="monthlyChart"></canvas>
+            </div>
+          </div>
+
+          <div class="card expenses-card">
+            <div class="card-header">
+              <h3>Expense Breakdown</h3>
+            </div>
+            <div class="chart-container">
+              <canvas id="expensesChart"></canvas>
+            </div>
+            <div class="expense-legend">
+              <div class="legend-item">
+                <span
+                  class="legend-color"
+                  style="background-color: #9d4edd"
+                ></span>
+                <span class="legend-label">Housing</span>
+                <span class="legend-value">35%</span>
+              </div>
+              <div class="legend-item">
+                <span
+                  class="legend-color"
+                  style="background-color: #c77dff"
+                ></span>
+                <span class="legend-label">Food</span>
+                <span class="legend-value">25%</span>
+              </div>
+              <div class="legend-item">
+                <span
+                  class="legend-color"
+                  style="background-color: #7b2cbf"
+                ></span>
+                <span class="legend-label">Transportation</span>
+                <span class="legend-value">15%</span>
+              </div>
+              <div class="legend-item">
+                <span
+                  class="legend-color"
+                  style="background-color: #5a189a"
+                ></span>
+                <span class="legend-label">Entertainment</span>
+                <span class="legend-value">10%</span>
+              </div>
+              <div class="legend-item">
+                <span
+                  class="legend-color"
+                  style="background-color: #3c096c"
+                ></span>
+                <span class="legend-label">Other</span>
+                <span class="legend-value">15%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-row">
+          <div class="card recent-transactions">
+            <div class="card-header">
+              <h3>Recent Transactions</h3>
+              <a href="#" class="view-all">View All</a>
+            </div>
+            <div class="transactions-list">
+              <div class="transaction-item">
+                <div class="transaction-icon grocery"></div>
+                <div class="transaction-details">
+                  <h4>Grocery Store</h4>
+                  <p>May 15, 2023</p>
+                </div>
+                <div class="transaction-amount expense">-$85.40</div>
+              </div>
+              <div class="transaction-item">
+                <div class="transaction-icon salary"></div>
+                <div class="transaction-details">
+                  <h4>Salary Deposit</h4>
+                  <p>May 10, 2023</p>
+                </div>
+                <div class="transaction-amount income">+$3,521.00</div>
+              </div>
+              <div class="transaction-item">
+                <div class="transaction-icon utilities"></div>
+                <div class="transaction-details">
+                  <h4>Electric Bill</h4>
+                  <p>May 8, 2023</p>
+                </div>
+                <div class="transaction-amount expense">-$94.62</div>
+              </div>
+              <div class="transaction-item">
+                <div class="transaction-icon entertainment"></div>
+                <div class="transaction-details">
+                  <h4>Movie Tickets</h4>
+                  <p>May 5, 2023</p>
+                </div>
+                <div class="transaction-amount expense">-$32.50</div>
+              </div>
+              <div class="transaction-item">
+                <div class="transaction-icon restaurant"></div>
+                <div class="transaction-details">
+                  <h4>Restaurant</h4>
+                  <p>May 3, 2023</p>
+                </div>
+                <div class="transaction-amount expense">-$68.25</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card budget-progress">
+            <div class="card-header">
+              <h3>Budget Progress</h3>
+              <a href="#" class="view-all">Manage</a>
+            </div>
+            <div class="budget-list">
+              <div class="budget-item">
+                <div class="budget-info">
+                  <h4>Groceries</h4>
+                  <div class="budget-amount">
+                    <span class="current">$320</span>
+                    <span class="separator">/</span>
+                    <span class="total">$400</span>
+                  </div>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress" style="width: 80%"></div>
+                </div>
+              </div>
+              <div class="budget-item">
+                <div class="budget-info">
+                  <h4>Entertainment</h4>
+                  <div class="budget-amount">
+                    <span class="current">$180</span>
+                    <span class="separator">/</span>
+                    <span class="total">$200</span>
+                  </div>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress warning" style="width: 90%"></div>
+                </div>
+              </div>
+              <div class="budget-item">
+                <div class="budget-info">
+                  <h4>Dining Out</h4>
+                  <div class="budget-amount">
+                    <span class="current">$250</span>
+                    <span class="separator">/</span>
+                    <span class="total">$250</span>
+                  </div>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress danger" style="width: 100%"></div>
+                </div>
+              </div>
+              <div class="budget-item">
+                <div class="budget-info">
+                  <h4>Transportation</h4>
+                  <div class="budget-amount">
+                    <span class="current">$120</span>
+                    <span class="separator">/</span>
+                    <span class="total">$300</span>
+                  </div>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress" style="width: 40%"></div>
+                </div>
+              </div>
+              <div class="budget-item">
+                <div class="budget-info">
+                  <h4>Shopping</h4>
+                  <div class="budget-amount">
+                    <span class="current">$210</span>
+                    <span class="separator">/</span>
+                    <span class="total">$300</span>
+                  </div>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress" style="width: 70%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="../particles.js"></script>
+    <script>
+      // Initialize Supabase client
+      const supabaseUrl = "https://zasmrwoujnxxrmmezldh.supabase.co";
+      const supabaseAnonKey =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inphc21yd291am54eHJtbWV6bGRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM3NjgzMTUsImV4cCI6MjA1OTM0NDMxNX0.DmB7HwUXfJuU2Mo-swGQSzK03sTt_YLIA3ifJuIEpdc";
+      const { createClient } = supabase;
+      const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+
+      // Check if user is logged in
+      async function checkAuth() {
+        const { data } = await supabaseClient.auth.getSession();
+        if (!data.session) {
+          // Redirect to login if not authenticated
+         // window.location.href = "../login/index.html";
+        } else {
+          // Get user details
+          const {
+            data: { user },
+          } = await supabaseClient.auth.getUser();
+          if (user) {
+            // Display user email or name
+            const userName = document.getElementById("userName");
+            const userInitials = document.getElementById("userInitials");
+
+            // Extract name from email (for demo purposes)
+            const emailName = user.email.split("@")[0];
+            const formattedName =
+              emailName.charAt(0).toUpperCase() + emailName.slice(1);
+            userName.textContent = formattedName;
+
+            // Set initials
+            const initials = emailName.substring(0, 2).toUpperCase();
+            userInitials.textContent = initials;
+          }
+        }
+      }
+
+      // Handle logout
+      document
+        .getElementById("logoutBtn")
+        .addEventListener("click", async (e) => {
+          e.preventDefault();
+          await supabaseClient.auth.signOut();
+          window.location.href = "../login/index.html";
+        });
+
+      // Toggle user dropdown menu
+      document.getElementById("userMenuBtn").addEventListener("click", () => {
+        document.getElementById("userDropdown").classList.toggle("active");
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest(".user-menu")) {
+          document.getElementById("userDropdown").classList.remove("active");
+        }
+      });
+
+      // Initialize charts when DOM is loaded
+      document.addEventListener("DOMContentLoaded", () => {
+        checkAuth();
+        initializeCharts();
+      });
+
+      function initializeCharts() {
+        // Monthly overview chart
+        const monthlyCtx = document
+          .getElementById("monthlyChart")
+          .getContext("2d");
+        const monthlyChart = new Chart(monthlyCtx, {
+          type: "line",
+          data: {
+            labels: ["Dec", "Jan", "Feb", "Mar", "Apr", "May"],
+            datasets: [
+              {
+                label: "Income",
+                data: [3200, 3100, 3400, 3300, 3450, 3521],
+                borderColor: "#9d4edd",
+                backgroundColor: "rgba(157, 78, 221, 0.1)",
+                tension: 0.4,
+                fill: true,
+              },
+              {
+                label: "Expenses",
+                data: [2100, 2300, 2000, 2200, 2150, 2180],
+                borderColor: "#ff0676",
+                backgroundColor: "rgba(255, 6, 118, 0.1)",
+                tension: 0.4,
+                fill: true,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: "top",
+                labels: {
+                  color: "#e2e2e2",
+                  font: {
+                    family: "Inter",
+                    size: 12,
+                  },
+                },
+              },
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                grid: {
+                  color: "rgba(255, 255, 255, 0.05)",
+                },
+                ticks: {
+                  color: "#a0a0a0",
+                  callback: function (value) {
+                    return "$" + value;
+                  },
+                },
+              },
+              x: {
+                grid: {
+                  color: "rgba(255, 255, 255, 0.05)",
+                },
+                ticks: {
+                  color: "#a0a0a0",
+                },
+              },
+            },
+          },
+        });
+
+        // Expenses breakdown chart
+        const expensesCtx = document
+          .getElementById("expensesChart")
+          .getContext("2d");
+        const expensesChart = new Chart(expensesCtx, {
+          type: "doughnut",
+          data: {
+            labels: [
+              "Housing",
+              "Food",
+              "Transportation",
+              "Entertainment",
+              "Other",
+            ],
+            datasets: [
+              {
+                data: [35, 25, 15, 10, 15],
+                backgroundColor: [
+                  "#9d4edd",
+                  "#c77dff",
+                  "#7b2cbf",
+                  "#5a189a",
+                  "#3c096c",
+                ],
+                borderWidth: 0,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: "70%",
+            plugins: {
+              legend: {
+                display: false,
+              },
+            },
+          },
+        });
+
+        // Update charts when timeframe changes
+        document
+          .getElementById("chartTimeframe")
+          .addEventListener("change", (e) => {
+            // In a real app, this would fetch new data based on the selected timeframe
+            // For demo purposes, we'll just log the change
+            console.log("Timeframe changed to:", e.target.value);
+          });
+      }
+    </script>
+  </body>
+</html>

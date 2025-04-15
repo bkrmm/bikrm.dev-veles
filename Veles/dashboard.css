@@ -1,0 +1,448 @@
+/* Dashboard Enhancement Styles */
+
+/* Financial Metrics Section */
+.metrics-grid {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1.5rem 1fr 1.5rem 1fr 1.5rem 1fr;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.metric-card {
+    background: rgba(26, 26, 26, 0.6);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 1rem;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(157, 78, 221, 0.1);
+}
+
+.metric-card:hover {
+    -webkit-transform: translateY(-3px);
+    -ms-transform: translateY(-3px);
+    transform: translateY(-3px);
+    -webkit-box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(157, 78, 221, 0.3);
+    background: rgba(26, 26, 26, 0.8);
+}
+
+.metric-icon {
+    width: 48px;
+    height: 48px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    background: -webkit-linear-gradient(315deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+    border-radius: var(--radius-md);
+    color: var(--primary-color);
+}
+
+.metric-content {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.metric-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.metric-label {
+    font-size: 0.875rem;
+    color: var(--text-light);
+}
+
+/* Transaction Table */
+.transactions {
+    padding: 1.5rem;
+}
+
+.transaction-header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.transaction-controls {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    gap: 1rem;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.transaction-filter {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.transaction-filter select,
+.transaction-search input {
+    background-color: rgba(26, 26, 26, 0.8);
+    border: 1px solid rgba(157, 78, 221, 0.2);
+    border-radius: var(--radius-md);
+    padding: 0.5rem 1rem;
+    color: var(--text-color);
+    font-size: 0.875rem;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.transaction-filter select:hover,
+.transaction-search input:hover {
+    border-color: rgba(157, 78, 221, 0.4);
+}
+
+.transaction-filter select:focus,
+.transaction-search input:focus {
+    outline: none;
+    border-color: rgba(157, 78, 221, 0.6);
+    -webkit-box-shadow: 0 0 0 2px rgba(157, 78, 221, 0.1);
+    box-shadow: 0 0 0 2px rgba(157, 78, 221, 0.1);
+}
+
+.transaction-search input {
+    width: 250px;
+}
+
+.transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+}
+
+.transaction-table th,
+.transaction-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(157, 78, 221, 0.1);
+}
+
+.transaction-table th {
+    font-weight: 600;
+    color: var(--text-light);
+    position: relative;
+}
+
+.transaction-table th.sortable {
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.transaction-table th.sortable:hover {
+    color: var(--primary-color);
+}
+
+.transaction-table th.active {
+    color: var(--primary-color);
+}
+
+.sort-icon {
+    margin-left: 0.25rem;
+    font-size: 0.75rem;
+}
+
+.transaction-table tr:hover {
+    background-color: rgba(26, 26, 26, 0.6);
+}
+
+.category-tag {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.category-tag.housing {
+    background-color: rgba(99, 102, 241, 0.2);
+    color: rgba(129, 140, 248, 1);
+}
+
+.category-tag.transportation {
+    background-color: rgba(139, 92, 246, 0.2);
+    color: rgba(167, 139, 250, 1);
+}
+
+.category-tag.food {
+    background-color: rgba(236, 72, 153, 0.2);
+    color: rgba(244, 114, 182, 1);
+}
+
+.category-tag.utilities {
+    background-color: rgba(16, 185, 129, 0.2);
+    color: rgba(52, 211, 153, 1);
+}
+
+.category-tag.entertainment {
+    background-color: rgba(249, 115, 22, 0.2);
+    color: rgba(251, 146, 60, 1);
+}
+
+.category-tag.income {
+    background-color: rgba(16, 185, 129, 0.2);
+    color: rgba(52, 211, 153, 1);
+}
+
+.category-tag.other {
+    background-color: rgba(156, 163, 175, 0.2);
+    color: rgba(209, 213, 219, 1);
+}
+
+.amount {
+    font-weight: 600;
+}
+
+.amount.positive {
+    color: var(--success-color);
+}
+
+.amount.negative {
+    color: var(--error-color);
+}
+
+.pagination-controls {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.pagination-info {
+    font-size: 0.875rem;
+    color: var(--text-light);
+}
+
+.pagination-buttons {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.pagination-buttons button {
+    background-color: rgba(26, 26, 26, 0.8);
+    border: 1px solid rgba(157, 78, 221, 0.2);
+    border-radius: var(--radius-md);
+    padding: 0.5rem 1rem;
+    color: var(--text-color);
+    font-size: 0.875rem;
+    cursor: pointer;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.pagination-buttons button:hover:not(:disabled) {
+    background-color: rgba(157, 78, 221, 0.2);
+    border-color: rgba(157, 78, 221, 0.4);
+}
+
+.pagination-buttons button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Category Breakdown */
+.category-breakdown {
+    padding: 1.5rem;
+}
+
+.category-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.category-table th,
+.category-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(157, 78, 221, 0.1);
+}
+
+.category-table th {
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: rgba(26, 26, 26, 0.8);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    overflow: hidden;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.progress-fill {
+    height: 100%;
+    background: -webkit-linear-gradient(left, var(--gradient-start), var(--gradient-end));
+    background: -moz-linear-gradient(left, var(--gradient-start), var(--gradient-end));
+    background: -o-linear-gradient(left, var(--gradient-start), var(--gradient-end));
+    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-transition: width 0.5s ease;
+    -moz-transition: width 0.5s ease;
+    -o-transition: width 0.5s ease;
+    transition: width 0.5s ease;
+}
+
+.progress-fill.success {
+    background: -webkit-linear-gradient(left, rgba(16, 185, 129, 0.6), rgba(16, 185, 129, 0.9));
+    background: -moz-linear-gradient(left, rgba(16, 185, 129, 0.6), rgba(16, 185, 129, 0.9));
+    background: -o-linear-gradient(left, rgba(16, 185, 129, 0.6), rgba(16, 185, 129, 0.9));
+    background: linear-gradient(90deg, rgba(16, 185, 129, 0.6), rgba(16, 185, 129, 0.9));
+}
+
+/* Budget Progress */
+.budget-progress {
+    padding: 1.5rem;
+}
+
+.budget-progress-container {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1.5rem 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.budget-progress-item {
+    background: rgba(26, 26, 26, 0.6);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    border: 1px solid rgba(157, 78, 221, 0.1);
+}
+
+.progress-header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.progress-header span:first-child {
+    font-weight: 500;
+}
+
+.progress-header span:last-child {
+    font-weight: 600;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .budget-progress-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .metrics-grid {
+        -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+    }
+    
+    .transaction-header {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-align: start;
+        -ms-flex-align: start;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .transaction-controls {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .transaction-filter {
+        width: 100%;
+    }
+    
+    .transaction-filter select {
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+    }
+    
+    .transaction-search {
+        width: 100%;
+    }
+    
+    .transaction-search input {
+        width: 100%;
+    }
+    
+    .transaction-table {
+        display: block;
+        overflow-x: auto;
+    }
+}

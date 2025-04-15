@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transactions | VELES</title> 
+    <link rel="stylesheet" href="../../normalize.css" />
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="../../dashboard.css" />
+    <link rel="stylesheet" href="../homepage.css" />
+    <link rel="stylesheet" href="transactions.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../../cursor.js" defer></script>
+    <script src="../../dashboard.js" defer></script>
+    <script src="transactions.js" defer></script>
+  </head>
+  <body>
+    <div class="gradient-background"></div>
+
+    <header class="dashboard-header">
+      <div class="container">
+        <div class="header-content">
+          <h1 class="logo">VELES</h1>
+          <nav class="main-nav">
+            <ul>
+              <li><a href="..\index.html">Dashboard</a></li>
+              <li><a href="#" class="active">Transactions</a></li>
+            </ul>
+          </nav>
+          <div class="user-menu">
+            <button id="userMenuBtn" class="user-menu-btn">
+              <span id="userInitials">JD</span>
+            </button>
+            <div id="userDropdown" class="dropdown-menu">
+              <a href="#">Profile</a>
+              <a href="#">Settings</a>
+              <a href="#" id="logoutBtn">Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard">
+      <div class="container">
+        <div class="welcome-section">
+          <h2>Transactions</h2>
+          <p>View and manage all your financial transactions</p>
+        </div>
+
+        <div class="card add-transaction-card">
+          <div class="add-transaction">
+            <h3>Add New Transaction</h3>
+            <form id="transaction-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="transaction-date">Date</label>
+                  <input type="date" id="transaction-date" required>
+                </div>
+                <div class="form-group">
+                  <label for="transaction-description">Description</label>
+                  <input type="text" id="transaction-description" placeholder="Enter description" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="transaction-amount">Amount</label>
+                  <input type="number" id="transaction-amount" step="0.01" placeholder="0.00" required>
+                </div>
+                <div class="form-group">
+                  <label for="transaction-type">Type</label>
+                  <select id="transaction-type" required>
+                    <option value="expense">Expense</option>
+                    <option value="income">Income</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="transaction-category">Category</label>
+                  <select id="transaction-category" required>
+                    <option value="Housing">Housing</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Food">Food</option>
+                    <option value="Utilities">Utilities</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Income">Income</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="transaction-account">Account</label>
+                  <select id="transaction-account" required>
+                    <option value="Checking Account">Checking Account</option>
+                    <option value="Credit Card">Credit Card</option>
+                    <option value="Savings Account">Savings Account</option>
+                    <option value="Investment Account">Investment Account</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn-primary">Add Transaction</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="card full-width-card">
+          <div class="transactions">
+            <div class="transaction-header">
+              <h3>All Transactions</h3>
+              <div class="transaction-controls">
+                <div class="transaction-filter">
+                  <select id="category-filter">
+                    <option value="all">All Categories</option>
+                    <option value="Housing">Housing</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Food">Food</option>
+                    <option value="Utilities">Utilities</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Income">Income</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <select id="account-filter">
+                    <option value="all">All Accounts</option>
+                    <option value="Checking Account">Checking Account</option>
+                    <option value="Credit Card">Credit Card</option>
+                    <option value="Savings Account">Savings Account</option>
+                    <option value="Investment Account">Investment Account</option>
+                  </select>
+                  <select id="date-filter">
+                    <option value="all">All Time</option>
+                    <option value="today">Today</option>
+                    <option value="week">This Week</option>
+                    <option value="month" selected>This Month</option>
+                    <option value="year">This Year</option>
+                  </select>
+                </div>
+                <div class="transaction-search">
+                  <input type="text" id="transaction-search" placeholder="Search transactions...">
+                </div>
+              </div>
+            </div>
+
+            <table class="transaction-table">
+              <thead>
+                <tr>
+                  <th data-sort="date" class="sortable active desc">Date <span class="sort-icon">↓</span></th>
+                  <th data-sort="description" class="sortable">Description <span class="sort-icon"></span></th>
+                  <th data-sort="category" class="sortable">Category <span class="sort-icon"></span></th>
+                  <th data-sort="amount" class="sortable">Amount <span class="sort-icon"></span></th>
+                  <th data-sort="account" class="sortable">Account <span class="sort-icon"></span></th>
+                </tr>
+              </thead>
+              <tbody id="transaction-body">
+                <!-- Transaction rows will be inserted here by JavaScript -->
+              </tbody>
+            </table>
+
+            <div class="pagination-controls">
+              <div class="pagination-info">Showing <span id="pagination-start">1</span>-<span id="pagination-end">10</span> of <span id="pagination-total">50</span></div>
+              <div class="pagination-buttons">
+                <button id="pagination-prev" disabled>Previous</button>
+                <button id="pagination-next">Next</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="dashboard-footer">
+      <div class="container">
+        <p>&copy; 2023 VELES Financial. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <div id="cursor"></div>
+    <div id="cursor-blur"></div>
+  </body>
+</html>
